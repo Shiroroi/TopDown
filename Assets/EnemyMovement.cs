@@ -5,8 +5,8 @@ public class EnemyMovement : Movement
 {
     public float _movementSpeed = 2f;
     public float RotationDegree = 22.5f;
-    private Transform target;
-    private Vector2 _moveDirection;
+    protected Transform target;
+    protected Vector2 _moveDirection;
    protected override void Start()
     {
         base.Start();
