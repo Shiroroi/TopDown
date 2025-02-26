@@ -1,5 +1,7 @@
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Weapon : MonoBehaviour
 {
@@ -40,6 +42,132 @@ public class Weapon : MonoBehaviour
 
     protected int currentBulletCount = 10;
 
+    private void Start()
+    {
+        currentBulletCount = MaxBulletCount;
+    }
+
+    private void Update()
+    {
+        UpdateReloadCooldown();
+        UpdateShootCooldown();
+    }
+
+    private void UpdateReloadCooldown()
+    {
+        if (ReloadCooldown.CurrentProgress != Cooldown.Progress.Finished)
+            return;
+
+        if (ReloadCooldown.CurrentProgress == Cooldown.Progress.Finished)
+        {
+            currentBulletCount = MaxBulletCount;
+        }
+
+        ReloadCooldown.CurrentProgress = Cooldown.Progress.Ready;
+    }
+
+    private void UpdateShootCooldown()
+    {
+        if (ShootInterval.CurrentProgress != Cooldown.Progress.Finished)
+            return;
+
+        ShootInterval.CurrentProgress = Cooldown.Progress.Ready;
+    }
+    public void Shoot()
+    {
+        if (Projectile == null)
+            return;
+
+        if (SpawnPos == null)
+            return;
+
+        if (ReloadCooldown.IsOnCoolDown || ReloadCooldown.CurrentProgress != Cooldown.Progress.Ready)
+            return;
 
 
+        switch (FireMode)
+        {
+            case FireModes.Auto:
+                {
+                    AutoFireShoot();
+                    break;
+                }
+
+            case FireModes.SingleFire:
+                {
+                    SingleFireShoot();
+                    break;
+                }
+
+            case FireModes.BurstFire:
+                {
+                    BurstFireShoot();
+                    break;
+                }
+        }
+
+        void AutoFireShoot()
+        {
+            if (!_canShoot)
+                return;
+
+            if (ShootInterval.CurrentProgress != Cooldown.Progress.Ready)
+                return;
+
+            ShootProjectile();
+
+            currentBulletCount--;
+
+            ShootInterval.StartCooldown();
+
+            if (currentBulletCount <= 0 && !ReloadCooldown.IsOnCoolDown)
+            {
+                ReloadCooldown.StartCooldown();
+            }
+
+
+        }
+
+        void SingleFireShoot()
+        {
+
+        }
+
+        void BurstFireShoot()
+        {
+
+        }
+
+
+        void ShootProjectile()
+        {
+            for (int i = 0; i < ProjectileCount; i++)
+            {
+                float randomRot = Random.Range(-Spread, Spread);
+
+                GameObject.Instantiate(Projectile, SpawnPos.position, SpawnPos.rotation * Quaternion.Euler(0, 0, randomRot));
+            }
+        }
+    }
+
+    public void StopShoot()
+    {
+        if (FireMode == FireModes.Auto)
+            return;
+
+        _firereset = true;
+
+    }
 }
+
+
+
+    
+
+
+    
+    
+
+   
+
+

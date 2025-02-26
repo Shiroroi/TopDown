@@ -34,6 +34,13 @@ public class WeaponHandler : MonoBehaviour
 
         CurrentWeapon.transform.position = GunPosition.position;
         CurrentWeapon.transform.rotation = GunPosition.rotation;
+
+        if(_tryshoot )
+            CurrentWeapon.Shoot();
+        else
+        {
+            CurrentWeapon.StopShoot();
+        }
     }
 
     public void EquipWeapon(GameObject equipWeapon)
