@@ -53,4 +53,10 @@ MonoBehaviour:
   Feedbacks: []
   ReloadFeedbacks: []
   SpawnPos: {fileID: 0}
+  ShootInterval:
+    CurrentProgress: 0
+    Duration: 1
+  ReloadCooldown:
+    CurrentProgress: 0
+    Duration: 1
   MaxBulletCount: 10

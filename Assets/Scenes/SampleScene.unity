@@ -568,7 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 322916a21de291a47910e9ca12fcf41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireMode: 0
+  FireMode: 1
   Spread: 0
   BurstFireAmount: 3
   BurstFireInterval: 0.1

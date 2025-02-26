@@ -1,7 +1,9 @@
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using System.Collections;
+
 
 public class Weapon : MonoBehaviour
 {
@@ -75,80 +77,89 @@ public class Weapon : MonoBehaviour
     }
     public void Shoot()
     {
-        if (Projectile == null)
-            return;
-
-        if (SpawnPos == null)
-            return;
-
-        if (ReloadCooldown.IsOnCoolDown || ReloadCooldown.CurrentProgress != Cooldown.Progress.Ready)
-            return;
-
+        if (Projectile == null || SpawnPos == null) return;
+        if (ReloadCooldown.IsOnCoolDown || ReloadCooldown.CurrentProgress != Cooldown.Progress.Ready) return;
 
         switch (FireMode)
         {
             case FireModes.Auto:
-                {
-                    AutoFireShoot();
-                    break;
-                }
+                AutoFireShoot();
+                break;
 
             case FireModes.SingleFire:
-                {
-                    SingleFireShoot();
-                    break;
-                }
+                SingleFireShoot();
+                break;
 
             case FireModes.BurstFire:
-                {
-                    BurstFireShoot();
-                    break;
-                }
-        }
-
-        void AutoFireShoot()
-        {
-            if (!_canShoot)
-                return;
-
-            if (ShootInterval.CurrentProgress != Cooldown.Progress.Ready)
-                return;
-
-            ShootProjectile();
-
-            currentBulletCount--;
-
-            ShootInterval.StartCooldown();
-
-            if (currentBulletCount <= 0 && !ReloadCooldown.IsOnCoolDown)
-            {
-                ReloadCooldown.StartCooldown();
-            }
-
-
-        }
-
-        void SingleFireShoot()
-        {
-
-        }
-
-        void BurstFireShoot()
-        {
-
-        }
-
-
-        void ShootProjectile()
-        {
-            for (int i = 0; i < ProjectileCount; i++)
-            {
-                float randomRot = Random.Range(-Spread, Spread);
-
-                GameObject.Instantiate(Projectile, SpawnPos.position, SpawnPos.rotation * Quaternion.Euler(0, 0, randomRot));
-            }
+                StartCoroutine(BurstFireCoroutine(3, 0.1f));
+                break;
         }
     }
+
+    void AutoFireShoot()
+    {
+        if (!_canShoot || ShootInterval.CurrentProgress != Cooldown.Progress.Ready) return;
+
+        ShootProjectile();
+        currentBulletCount--;
+        ShootInterval.StartCooldown();
+
+        if (currentBulletCount <= 0 && !ReloadCooldown.IsOnCoolDown)
+            ReloadCooldown.StartCooldown();
+    }
+
+    void SingleFireShoot()
+    {
+        if (!_canShoot || ShootInterval.CurrentProgress != Cooldown.Progress.Ready) return;
+
+        ShootProjectile();
+        currentBulletCount--;
+        ShootInterval.StartCooldown();
+
+        _canShoot = false; // Prevent continuous fire
+        StartCoroutine(ResetCanShoot()); // Re-enable after button release
+    }
+
+    IEnumerator ResetCanShoot()
+    {
+        yield return new WaitUntil(() => !Input.GetMouseButton(0)); // Wait until button is released
+        _canShoot = true;
+    }
+
+    void BurstFireShoot()
+{
+    if (!_canShoot || ShootInterval.CurrentProgress != Cooldown.Progress.Ready) return;
+
+    _canShoot = false; // Prevent spamming
+    StartCoroutine(BurstFireCoroutine(3, 0.1f)); // 3 shots with 0.1s delay
+}
+
+IEnumerator BurstFireCoroutine(int burstCount, float delay)
+{
+    for (int i = 0; i < burstCount; i++)
+    {
+        if (currentBulletCount <= 0) break; // Stop if out of bullets
+
+        ShootProjectile();
+        currentBulletCount--;
+        yield return new WaitForSeconds(delay); // Wait before firing the next shot
+    }
+
+    ShootInterval.StartCooldown(); // Start cooldown after burst ends
+    yield return new WaitUntil(() => ShootInterval.CurrentProgress == Cooldown.Progress.Finished);
+    _canShoot = true; // Allow shooting again
+}
+
+
+    void ShootProjectile()
+    {
+        for (int i = 0; i < ProjectileCount; i++)
+        {
+            float randomRot = Random.Range(-Spread, Spread);
+            GameObject.Instantiate(Projectile, SpawnPos.position, SpawnPos.rotation * Quaternion.Euler(0, 0, randomRot));
+        }
+    }
+
 
     public void StopShoot()
     {
