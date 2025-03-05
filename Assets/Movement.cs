@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
 
     protected Collider2D _collider;
     protected Rigidbody2D _rigidBody;
+    protected WeaponHandler _weaponHandler;
 
     protected bool _isMoving = false;
 
@@ -27,10 +28,7 @@ public class Movement : MonoBehaviour
     {
         _collider = GetComponent<Collider2D>();
         _rigidBody = GetComponent<Rigidbody2D>();
-
-
-
-
+        _weaponHandler = GetComponent<WeaponHandler>();
 
     }
 

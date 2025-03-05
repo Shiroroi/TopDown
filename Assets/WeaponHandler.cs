@@ -47,7 +47,7 @@ public class WeaponHandler : MonoBehaviour
     {
         if (equipWeapon == null) return;
 
-        if (CurrentWeapon != equipWeapon)
+        if (CurrentWeapon != null)
         {
             Destroy(CurrentWeapon.gameObject);
         }

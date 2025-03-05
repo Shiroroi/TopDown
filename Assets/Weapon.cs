@@ -91,7 +91,7 @@ public class Weapon : MonoBehaviour
                 break;
 
             case FireModes.BurstFire:
-                StartCoroutine(BurstFireCoroutine(3, 0.1f));
+                BurstFireShoot();
                 break;
         }
     }
@@ -127,29 +127,9 @@ public class Weapon : MonoBehaviour
     }
 
     void BurstFireShoot()
-{
-    if (!_canShoot || ShootInterval.CurrentProgress != Cooldown.Progress.Ready) return;
-
-    _canShoot = false; // Prevent spamming
-    StartCoroutine(BurstFireCoroutine(3, 0.1f)); // 3 shots with 0.1s delay
-}
-
-IEnumerator BurstFireCoroutine(int burstCount, float delay)
-{
-    for (int i = 0; i < burstCount; i++)
     {
-        if (currentBulletCount <= 0) break; // Stop if out of bullets
-
-        ShootProjectile();
-        currentBulletCount--;
-        yield return new WaitForSeconds(delay); // Wait before firing the next shot
+        
     }
-
-    ShootInterval.StartCooldown(); // Start cooldown after burst ends
-    yield return new WaitUntil(() => ShootInterval.CurrentProgress == Cooldown.Progress.Finished);
-    _canShoot = true; // Allow shooting again
-}
-
 
     void ShootProjectile()
     {
