@@ -34,7 +34,6 @@ public class UIreloadIndicator : MonoBehaviour
             float maxBulletCount = playerWeaponHandler.CurrentWeapon.MaxBulletCount;
 
             float bulletLeftFill = currentBulletCount / maxBulletCount;
-            float bulletRightFill = 
 
             if (_reloadBar != null)
             {
@@ -42,13 +41,25 @@ public class UIreloadIndicator : MonoBehaviour
                 
             }
 
-            if (_reloadBar == null)
-            {
-                
-            }
+
+
+
 
         }
 
-       
+        if (!playerWeaponHandler.CurrentWeapon.ReloadCooldown.IsOnCoolDown)
+            return;
+
+        float reloadFill = playerWeaponHandler.CurrentWeapon.ReloadCooldown.CurrentDuration / playerWeaponHandler.CurrentWeapon.ReloadCooldown.Duration;
+
+        reloadFill -= 1;
+
+        reloadFill *= -1;
+
+        if (_reloadBar != null)
+            _reloadBar.fillAmount = reloadFill;
+
+
+
     }
 }
