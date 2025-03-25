@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 6371527372998589926}
   - component: {fileID: 1292159646436820439}
   - component: {fileID: 1698122337477215069}
+  - component: {fileID: 6335661830996757713}
   m_Layer: 0
   m_Name: EnemyCircular
   m_TagString: Untagged
@@ -214,3 +215,17 @@ MonoBehaviour:
   approachSpeed: 2.5
   maxRadius: 15
   shrinkRate: 0.85
+--- !u!114 &6335661830996757713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9031183392352716350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c98a5b65725db5c49b48b1e9d70145f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 10
+  EnemyDeathSoundObject: {fileID: 0}

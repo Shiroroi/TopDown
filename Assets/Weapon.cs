@@ -128,7 +128,52 @@ public class Weapon : MonoBehaviour
 
     void BurstFireShoot()
     {
-        
+
+        if (!_canShoot)
+            return;
+        if (ShootInterval.CurrentProgress != Cooldown.Progress.Ready)
+            return;
+
+        if (AutoClip == null) { Debug.LogWarning(gameObject.name + ":  is missing something."); return; }
+
+        if (GunReloadClip == null) { Debug.LogWarning(gameObject.name + ":  is missing something."); return; }
+
+        StartCoroutine("BursttShoot");
+        currentBulletCount--;
+
+        _source.PlayOneShot(BurstClip, 1.5f);
+
+
+
+        ShootInterval.StartCooldown();
+
+        if (currentBulletCount <= 0 && !ReloadCooldown.IsOnCoolDown)
+        {
+            ReloadCooldown.StartCooldown();
+            _source.PlayOneShot(GunReloadClip, 1.5f);
+        }
+
+
+    }
+
+    //Use coroutine for Brust fire mode
+    IEnumerator BurstShoot()
+    {
+        for (int i = 0; i < BurstFireAmount; ++i)
+        {
+
+            float randomRot = Random.Range(-Spread, Spread);
+
+
+            GameObject.Instantiate(Projectile, SpawnPos.position, SpawnPos.rotation * Quaternion.Euler(0, 0, randomRot));
+
+
+
+            //wait 0.07 second (Fire rate) and continue to do the for loop
+            yield return new WaitForSeconds(FireRate);
+
+
+        }
     }
 
     void ShootProjectile()

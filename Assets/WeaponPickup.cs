@@ -9,6 +9,7 @@ public class WeaponPickup : PickUp
         if (Weapon == null)
         {
             Debug.LogWarning("Missing Weapon");
+            return;
         }
 
         WeaponHandler weaponHandler = collision.GetComponent<WeaponHandler>();

@@ -5,7 +5,7 @@ public class WeaponHandler : MonoBehaviour
     public Weapon CurrentWeapon;
     public Transform GunPosition;
 
-    protected bool _tryshoot = false;
+    public bool _tryshoot = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
