@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4724136764242286876}
   - component: {fileID: 2771755926894158973}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 9070354688712435548}
   - component: {fileID: 5885055722801383289}
   - component: {fileID: -3390232375814813343}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyStraight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

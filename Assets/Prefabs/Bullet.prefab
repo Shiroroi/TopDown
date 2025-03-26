@@ -142,10 +142,10 @@ MonoBehaviour:
   PushForce: 10
   TargetLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   IgnoreLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16
 --- !u!1 &6407322222679814997
 GameObject:
   m_ObjectHideFlags: 0
