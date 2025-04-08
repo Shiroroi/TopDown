@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4384276790261767918}
   - component: {fileID: 2252942492518887580}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,9 +100,10 @@ GameObject:
   - component: {fileID: 1292159646436820439}
   - component: {fileID: 1698122337477215069}
   - component: {fileID: 6335661830996757713}
-  m_Layer: 0
+  - component: {fileID: 7243156732917494996}
+  m_Layer: 6
   m_Name: EnemyCircular
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -229,3 +230,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 10
   EnemyDeathSoundObject: {fileID: 0}
+--- !u!114 &7243156732917494996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9031183392352716350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3dfeb26c701b4049b821b3aef314d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
+  knockbackForce: 10

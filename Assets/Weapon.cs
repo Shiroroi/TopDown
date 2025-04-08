@@ -156,7 +156,7 @@ public class Weapon : MonoBehaviour
     }
 
     //Use coroutine for Brust fire mode
-    IEnumerator BurstShoot()
+    protected IEnumerator BurstShoot()
     {
         for (int i = 0; i < BurstFireAmount; ++i)
         {

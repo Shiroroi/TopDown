@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4724136764242286876}
   - component: {fileID: 2771755926894158973}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,9 +100,10 @@ GameObject:
   - component: {fileID: 9070354688712435548}
   - component: {fileID: 5885055722801383289}
   - component: {fileID: -3390232375814813343}
-  m_Layer: 0
+  - component: {fileID: 2793216113305881347}
+  m_Layer: 6
   m_Name: EnemyStraight
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputDirection: {x: 0, y: 0}
-  _movementSpeed: 1
+  _movementSpeed: 2
   RotationDegree: 22.5
 --- !u!114 &-3390232375814813343
 MonoBehaviour:
@@ -225,3 +226,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 10
   EnemyDeathSoundObject: {fileID: 0}
+--- !u!114 &2793216113305881347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060607996043331250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3dfeb26c701b4049b821b3aef314d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
+  knockbackForce: 10

@@ -12,15 +12,27 @@ public class PlayerHealth : MonoBehaviour
     private float immunityTimer = 0f;  // Timer for immunity duration
 
     public Image[] heartImages;  // UI images for hearts (assign in the Inspector)
+    public Image damageOverlayImage;  // Custom damage overlay image (assign in the Inspector)
 
-    // For feedback (like a damage flash)
-    public GameObject damageFeedbackPrefab;
+    // Player's sprite renderer to handle blinking effect
+    private SpriteRenderer playerSpriteRenderer;
+    private Color originalColor;
 
     // Start is called once before the first frame update
     void Start()
     {
         currentHearts = maxHearts;
         UpdateHealthUI();  // Update the heart UI initially
+
+        // Get the SpriteRenderer component for the player blinking effect
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = playerSpriteRenderer.color;  // Store the original color of the player sprite
+
+        // Ensure damageOverlayImage starts as invisible (fully transparent)
+        if (damageOverlayImage != null)
+        {
+            damageOverlayImage.color = new Color(1f, 1f, 1f, 0f);  // Fully transparent
+        }
     }
 
     // Update is called once per frame
@@ -29,11 +41,31 @@ public class PlayerHealth : MonoBehaviour
         if (isImmune)
         {
             immunityTimer -= Time.deltaTime;
+
+            // Make the player blink by toggling opacity during immunity
+            if (immunityTimer % 0.2f < 0.1f)
+            {
+                playerSpriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.3f); // Make player semi-transparent
+            }
+            else
+            {
+                playerSpriteRenderer.color = originalColor; // Restore original opacity
+            }
+
             if (immunityTimer <= 0)
             {
                 isImmune = false;
-                ResetHeartUI();  // Reset heart visuals after immunity ends
+                playerSpriteRenderer.color = originalColor;  // Reset player color after immunity ends
             }
+        }
+
+        // Update the damage overlay effect based on health
+        if (damageOverlayImage != null)
+        {
+            // Calculate the transparency based on current health
+            float healthPercentage = (float)currentHearts / maxHearts;
+            float alphaValue = 1 - healthPercentage;  // The lower the health, the more opaque the overlay
+            damageOverlayImage.color = new Color(1f, 1f, 1f, alphaValue);  // Custom image with alpha based on health
         }
     }
 
@@ -42,7 +74,8 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isImmune) return;  // Ignore damage if immune
 
-        currentHearts -= Mathf.CeilToInt(damageAmount / 2);  // Reduce health by half a heart
+        // Damage by 1 (not halved anymore)
+        currentHearts -= Mathf.CeilToInt(damageAmount);  // Reduce health by 1 heart
         currentHearts = Mathf.Max(currentHearts, 0);  // Don't let health go below 0
 
         UpdateHealthUI();  // Update the health UI
@@ -50,10 +83,6 @@ public class PlayerHealth : MonoBehaviour
         // Trigger immunity and knockback
         isImmune = true;
         immunityTimer = immunityDuration;
-
-        // Visual feedback for damage (e.g., a quick flash of red)
-        if (damageFeedbackPrefab != null)
-            Instantiate(damageFeedbackPrefab, transform.position, Quaternion.identity);
 
         Knockback();  // Apply knockback when hit
 
@@ -75,15 +104,6 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    // Reset heart UI after immunity ends (remove blinking effect)
-    void ResetHeartUI()
-    {
-        foreach (Image heart in heartImages)
-        {
-            heart.color = Color.white;  // Reset heart color to white
-        }
-    }
-
     // Knockback effect when the player is hit
     void Knockback()
     {
@@ -97,6 +117,7 @@ public class PlayerHealth : MonoBehaviour
         // Display a Game Over screen, stop the game, or restart
         Debug.Log("Game Over! No health left.");
         // You can add game over logic here (e.g., load a new scene, show UI)
+        Destroy(this.gameObject);
     }
 }
 

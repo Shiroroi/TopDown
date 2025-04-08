@@ -51,6 +51,7 @@ MonoBehaviour:
   BurstFireAmount: 3
   BurstFireInterval: 0.1
   ProjectileCount: 1
+  FireRate: 0.07
   Projectile: {fileID: 4389203581001160112, guid: 30fc009b4424531478c116b3aea23071, type: 3}
   Feedbacks: []
   ReloadFeedbacks: []
