@@ -29,7 +29,7 @@ public class Health : MonoBehaviour
     public void Damage(float damage, GameObject source)
     {
 
-        //GameObject.Instantiate(EnemyDeathSoundObject, transform.position, transform.rotation);
+        GameObject.Instantiate(EnemyDeathSoundObject, transform.position, transform.rotation);
 
 
         _currentHealth -= damage;

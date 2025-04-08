@@ -22,7 +22,6 @@ public class Weapon : MonoBehaviour
     public int BurstFireAmount = 3;
     public float BurstFireInterval = 0.1f;
     public int ProjectileCount = 1;
-    public float FireRate = 0.07f;
 
     public GameObject Projectile;
 
@@ -135,12 +134,14 @@ public class Weapon : MonoBehaviour
         if (ShootInterval.CurrentProgress != Cooldown.Progress.Ready)
             return;
 
-        
+        if (AutoClip == null) { Debug.LogWarning(gameObject.name + ":  is missing something."); return; }
 
-        StartCoroutine("BurstShoot");
+        if (GunReloadClip == null) { Debug.LogWarning(gameObject.name + ":  is missing something."); return; }
+
+        StartCoroutine("BursttShoot");
         currentBulletCount--;
 
-        
+        _source.PlayOneShot(BurstClip, 1.5f);
 
 
 
@@ -149,7 +150,7 @@ public class Weapon : MonoBehaviour
         if (currentBulletCount <= 0 && !ReloadCooldown.IsOnCoolDown)
         {
             ReloadCooldown.StartCooldown();
-            
+            _source.PlayOneShot(GunReloadClip, 1.5f);
         }
 
 

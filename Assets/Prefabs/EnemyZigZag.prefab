@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1015474700981147699}
   - component: {fileID: 5531033039905840944}
   - component: {fileID: -8884170908347106824}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: EnemyZigZag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1460949885212486473}
   - component: {fileID: 3534649361700655206}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
