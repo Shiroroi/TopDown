@@ -209,8 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 515c777e996d75b49a6c6788aa4c5792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Acceleration: 5
   _inputDirection: {x: 0, y: 0}
-  _movementSpeed: 2
   RotationDegree: 0
   spiralSpeed: 3
   approachSpeed: 2.5
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c98a5b65725db5c49b48b1e9d70145f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 10
+  MaxHealth: 5
   EnemyDeathSoundObject: {fileID: 0}
 --- !u!114 &7243156732917494996
 MonoBehaviour:

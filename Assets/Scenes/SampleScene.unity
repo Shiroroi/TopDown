@@ -1991,6 +1991,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 667607276}
     - target: {fileID: 3546361911481955702, guid: 82b6c5f29ad494b43ae9015b50400d09, type: 3}
+      propertyPath: TargetOverlayImageColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546361911481955702, guid: 82b6c5f29ad494b43ae9015b50400d09, type: 3}
+      propertyPath: TargetOverlayImageColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546361911481955702, guid: 82b6c5f29ad494b43ae9015b50400d09, type: 3}
+      propertyPath: TargetOverlayImageColor.r
+      value: 0.50980395
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546361911481955702, guid: 82b6c5f29ad494b43ae9015b50400d09, type: 3}
       propertyPath: 'heartImages.Array.data[0]'
       value: 
       objectReference: {fileID: 948777959}

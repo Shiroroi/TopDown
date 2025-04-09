@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    protected float Acceleration = 5f;
+    public float Acceleration = 5f;
     protected float m_MovementSmoothing = 0.05f;
 
 

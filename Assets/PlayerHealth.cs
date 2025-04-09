@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
 
     public Image[] heartImages;  // UI images for hearts (assign in the Inspector)
     public Image damageOverlayImage;  // Custom damage overlay image (assign in the Inspector)
+    public Color TargetOverlayImageColor = Color.white;
 
     // Player's sprite renderer to handle blinking effect
     private SpriteRenderer playerSpriteRenderer;
@@ -65,7 +66,7 @@ public class PlayerHealth : MonoBehaviour
             // Calculate the transparency based on current health
             float healthPercentage = (float)currentHearts / maxHearts;
             float alphaValue = 1 - healthPercentage;  // The lower the health, the more opaque the overlay
-            damageOverlayImage.color = new Color(1f, 1f, 1f, alphaValue);  // Custom image with alpha based on health
+            damageOverlayImage.color = new Color(TargetOverlayImageColor.r, TargetOverlayImageColor.g, TargetOverlayImageColor.b, alphaValue);  // Custom image with alpha based on health
         }
     }
 

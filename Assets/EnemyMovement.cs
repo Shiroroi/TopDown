@@ -3,7 +3,6 @@ using UnityEngine.UIElements;
 
 public class EnemyMovement : Movement
 {
-    public float _movementSpeed;
     public float RotationDegree;
     protected Transform target;
     protected Vector2 _moveDirection;

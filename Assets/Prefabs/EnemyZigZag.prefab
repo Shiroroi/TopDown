@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef3fef84429b1f49bc014adef235e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Acceleration: 3
   _inputDirection: {x: 0, y: 0}
-  _movementSpeed: 1
   RotationDegree: 22.5
   zigzagSpeed: 5
   maxZigzagAmount: 5
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c98a5b65725db5c49b48b1e9d70145f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 10
+  MaxHealth: 5
   EnemyDeathSoundObject: {fileID: 0}
 --- !u!114 &8007865504694948956
 MonoBehaviour:
