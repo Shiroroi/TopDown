@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6562435c247ccd14286d2b07796fa18c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Acceleration: 5
   _inputDirection: {x: 0, y: 0}
 --- !u!114 &7741484601298070582
 MonoBehaviour:
@@ -280,7 +281,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  redScreenOverlay: {fileID: 0}
+  damageOverlayImage: {fileID: 0}
+  TargetOverlayImageColor: {r: 0.50980395, g: 0, b: 0, a: 1}
 --- !u!212 &2379159255976734340
 SpriteRenderer:
   m_ObjectHideFlags: 0

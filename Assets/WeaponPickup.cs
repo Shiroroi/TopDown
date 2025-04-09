@@ -2,32 +2,25 @@ using UnityEngine;
 
 public class WeaponPickup : PickUp
 {
-    public GameObject Weapon;
+    public GameObject weaponPrefab;  // Reference to the melee weapon prefab
 
     protected override void PickedUp(Collider2D collision)
     {
-        if (Weapon == null)
+        if (weaponPrefab == null)
         {
-            Debug.LogWarning("Missing Weapon");
+            Debug.LogWarning("No weapon prefab assigned!");
             return;
         }
 
+        // Get the WeaponHandler component from the player
         WeaponHandler weaponHandler = collision.GetComponent<WeaponHandler>();
-
         if (weaponHandler == null)
             return;
 
-        
-            
-        
+        // Equip the weapon when the player picks it up
+        weaponHandler.EquipWeapon(weaponPrefab);
 
-
-        weaponHandler.EquipWeapon(Weapon);
-        
+        // Destroy the pickup object (the white cube)
+        Destroy(gameObject);
     }
-
-
-
-
-
 }
