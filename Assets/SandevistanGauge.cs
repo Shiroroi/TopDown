@@ -4,6 +4,8 @@ using System.Collections;
 public class SandevistanGauge : MonoBehaviour
 {
     public Image[] gaugeBars;  // Array of UI images representing the gauge (battery-like bars)
+    public Image gaugebar;
+
     public Color activeColor = Color.green;  // Color when the bar is filled
     public Color glowColor = Color.yellow;  // Glow effect color for the border when full
     public float glowSpeed = 1f;  // Speed of the glow effect
@@ -59,9 +61,16 @@ public class SandevistanGauge : MonoBehaviour
     }
 
     // Register a kill and update the bar
-    public void RegisterKill()
+    public void RegisterKill(Health health)
     {
+        Debug.Log(health.gameObject + " died");
+
         kills++;
+
+        if (gaugebar != null)
+        {
+            gaugebar.fillAmount += 0.1f;
+        }
 
         // After 5 kills, increase the bar by 3 blocks (adjustable)
         if (kills % 5 == 0)
@@ -101,6 +110,8 @@ public class SandevistanGauge : MonoBehaviour
                     bar.GetComponent<Outline>().effectColor = borderColor;
                 }
             }
+
+            gaugebar.color = borderColor;
 
             yield return null;
         }

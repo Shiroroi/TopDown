@@ -48,7 +48,7 @@ public class Health : MonoBehaviour
         // Register a kill in the SandevistanGauge when the enemy dies
         if (sandevistanGauge != null)
         {
-            sandevistanGauge.RegisterKill();  // Increment the kill count to fill the gauge
+            sandevistanGauge.RegisterKill(this);  // Increment the kill count to fill the gauge
         }
 
         // Optionally play the death sound
