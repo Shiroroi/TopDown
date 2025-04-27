@@ -15,23 +15,19 @@ public class EnemyMovement : Movement
     // Update is called once per frame
     protected override void HandleInput()
     {
+        if (target == null) return;
 
-        
-        if (target == null)
-            return;
-        
         Vector3 direction = (target.position - transform.position).normalized;
-        _moveDirection = direction;
-        
-        Debug.DrawRay(transform.position, _moveDirection, Color.yellow);
 
+        // Ensure enemy movement works with Time.timeScale changes
+        float speedAdjustment = Time.timeScale == 1f ? 1f : Time.timeScale;
+
+        _moveDirection = direction * speedAdjustment;
         _inputDirection = new Vector2(_moveDirection.x, _moveDirection.y);
-
-
-        
     }
 
-    
+
+
 
 
 

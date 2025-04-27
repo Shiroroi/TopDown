@@ -5,18 +5,15 @@ public class Health : MonoBehaviour
     public float MaxHealth = 10f;
     private float _currentHealth = 10f;
 
-    public GameObject EnemyDeathSoundObject;
+    public AudioClip EnemyDeathSoundObject;
+    private AudioSource audioSource;
 
-    // Reference to SandevistanGauge to register kills
-    private SandevistanGauge sandevistanGauge;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Initialization();
-
-        // Find the SandevistanGauge component (either on the player or a manager object)
-        sandevistanGauge = Object.FindFirstObjectByType<SandevistanGauge>();  // Using Object.FindFirstObjectByType for better performance
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Initialization()
@@ -45,16 +42,13 @@ public class Health : MonoBehaviour
     // Handle enemy death
     public void Die()
     {
-        // Register a kill in the SandevistanGauge when the enemy dies
-        if (sandevistanGauge != null)
-        {
-            sandevistanGauge.RegisterKill(this);  // Increment the kill count to fill the gauge
-        }
+        
 
         // Optionally play the death sound
-        if (EnemyDeathSoundObject != null)
+        if (EnemyDeathSoundObject != null && audioSource != null)
         {
-            Instantiate(EnemyDeathSoundObject, transform.position, transform.rotation);
+            //Instantiate(EnemyDeathSoundObject, transform.position, transform.rotation);
+            audioSource.PlayOneShot(EnemyDeathSoundObject);
         }
 
         // Destroy the enemy GameObject

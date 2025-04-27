@@ -8,16 +8,16 @@ public class PlayerHealth : MonoBehaviour
 
     public float knockbackForce = 10f;  // Force for knockback
     public float immunityDuration = 2f;  // Time for immunity after damage
-    private bool isImmune = false;  // Flag for immunity
-    private float immunityTimer = 0f;  // Timer for immunity duration
+    protected bool isImmune = false;  // Flag for immunity
+    protected float immunityTimer = 0f;  // Timer for immunity duration
 
     public Image[] heartImages;  // UI images for hearts (assign in the Inspector)
     public Image damageOverlayImage;  // Custom damage overlay image (assign in the Inspector)
     public Color TargetOverlayImageColor = Color.white;
 
     // Player's sprite renderer to handle blinking effect
-    private SpriteRenderer playerSpriteRenderer;
-    private Color originalColor;
+    protected SpriteRenderer playerSpriteRenderer;
+    protected Color originalColor;
 
     // Start is called once before the first frame update
     void Start()
@@ -89,7 +89,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHearts <= 0)
         {
-            GameOver();  // If no hearts left, game over
+            Die();  // If no hearts left, game over
         }
     }
 
@@ -113,12 +113,14 @@ public class PlayerHealth : MonoBehaviour
     }
 
     // Game over logic
-    void GameOver()
+    void Die()
     {
         // Display a Game Over screen, stop the game, or restart
         Debug.Log("Game Over! No health left.");
-        // You can add game over logic here (e.g., load a new scene, show UI)
+        GameManager.Instance.GameOver();
+
         Destroy(this.gameObject);
+
     }
 }
 

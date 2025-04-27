@@ -38,6 +38,13 @@ public class Weapon : MonoBehaviour
 
     public Cooldown ReloadCooldown;
     public int MaxBulletCount = 10;
+
+    public AudioClip shootSound;  // Drag the shooting sound here in the inspector
+    private AudioSource audioSource;
+
+    private float shotCooldownTimer = 0f;
+
+
     public int CurrentBulletCount
     {
         get { return currentBulletCount; }
@@ -48,12 +55,22 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         currentBulletCount = MaxBulletCount;
+        audioSource = GetComponent<AudioSource>();  // Get the AudioSource component
     }
 
     private void Update()
     {
         UpdateReloadCooldown();
         UpdateShootCooldown();
+        HandleShotCooldown();
+    }
+
+    private void HandleShotCooldown()
+    {
+        if (shotCooldownTimer > 0)
+        {
+            shotCooldownTimer -= Time.deltaTime;  // Decrease cooldown timer
+        }
     }
 
     private void UpdateReloadCooldown()
@@ -78,22 +95,33 @@ public class Weapon : MonoBehaviour
     }
     public void Shoot()
     {
+        if (shootSound != null && audioSource != null)
+        {
+            // Play the shooting sound only once per click
+            if (!audioSource.isPlaying)  // Only play if the sound isn't already playing
+            {
+                audioSource.PlayOneShot(shootSound);
+            }
+        }
         if (Projectile == null || SpawnPos == null) return;
         if (ReloadCooldown.IsOnCoolDown || ReloadCooldown.CurrentProgress != Cooldown.Progress.Ready) return;
 
-        switch (FireMode)
+        if (shotCooldownTimer <= 0)
         {
-            case FireModes.Auto:
-                AutoFireShoot();
-                break;
+            switch (FireMode)
+            {
+                case FireModes.Auto:
+                    AutoFireShoot();
+                    break;
 
-            case FireModes.SingleFire:
-                SingleFireShoot();
-                break;
+                case FireModes.SingleFire:
+                    SingleFireShoot();
+                    break;
 
-            case FireModes.BurstFire:
-                BurstFireShoot();
-                break;
+                case FireModes.BurstFire:
+                    BurstFireShoot();
+                    break;
+            }
         }
     }
 
@@ -116,6 +144,8 @@ public class Weapon : MonoBehaviour
         ShootProjectile();
         currentBulletCount--;
         ShootInterval.StartCooldown();
+
+        shotCooldownTimer = 0.5f;
 
         _canShoot = false; // Prevent continuous fire
         StartCoroutine(ResetCanShoot()); // Re-enable after button release
